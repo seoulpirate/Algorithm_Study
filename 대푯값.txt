@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n = 10;
+  vector<int> a(n);
+  int sum=0;
+  for(int i=0;i<n; i++){
+    cin >> a[i];
+    sum+=a[i];
+  }
+  int avg = sum/n;
+  sort(a.begin(), a.end());
+  
+  vector<int> b(a);
+  b.erase(unique(b.begin(), b.end()), b.end() );
+  
+  int count = 0, mod = 0;
+  for(int i=0; i<b.size(); i++){
+    auto p = equal_range(a.begin(), a.end(), b[i]);
+    int tmp = p.second - p.first;
+    if(tmp > count){
+      count = tmp;
+      mod = b[i];
+    }
+  }
+ 
+  cout << avg <<'\n';
+  cout << mod << '\n';
+  return 0;
+}

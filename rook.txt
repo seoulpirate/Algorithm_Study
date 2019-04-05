@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+int a[8][8];
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+int n = 8;
+int go(int sx, int sy){
+  int x = sx;
+  int y = sy;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    while(nx>=0 && nx<n && ny>=0 && ny<n){
+      if(a[nx][ny]==3) break;
+      if(a[nx][ny]==1) return 1;
+      a[nx][ny] = 2;
+      nx+=dx[k];
+      ny+=dy[k];
+    }
+  }
+  return 0;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int x1=-1, y1, x2=-1, y2;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      cin >> a[i][j];
+      if(a[i][j] == 2){
+        if(x1==-1){
+          x1 = i;
+          y1 = j;
+        }else{
+          x2 = i;
+          y2 = j;
+        }
+      }
+    }
+  }
+ 
+  if(x2!=-1){
+    int ans = go(x1, y1);
+    if(ans == 0)
+      cout << go(x2, y2) << '\n';
+    else
+      cout << ans << '\n';
+  }else{
+    cout << go(x1, y1) << '\n';
+  }
+  
+  return 0;
+}

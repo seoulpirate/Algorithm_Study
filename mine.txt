@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+int dx[] = {0,0,1,-1,-1,-1,1,1};
+int dy[] = {1,-1,0,0,-1,1,-1,1};
+int a[101][101];
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m;
+  cin >> n >> m;
+  int x, y;
+  cin >> x >> y;
+  x-=1; y-=1;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+      cin >> a[i][j];
+    }
+  }
+  if(a[x][y]==1){
+    cout << "game over"<<'\n';
+    return 0;
+  }
+  int ans = 0;
+  for(int k=0; k<8; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(a[nx][ny] == 1)
+      ans += 1;
+  }
+  cout << ans << '\n';
+  return 0;
+}

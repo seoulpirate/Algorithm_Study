@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+bool c[1010][1010];
+int dx[]={0,1,0,-1};
+int dy[]={1,0,-1,0};
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  int k; cin >> k;
+  int dir = 0;
+  int x=1, y=1;
+  for(int i=1; i<=n*m; i++){
+    c[x][y] = true;
+    if(i==k){
+      cout << x << ' ' << y <<'\n';
+      return 0;
+    }
+    int nx = x+dx[dir];
+    int ny = y+dy[dir];
+    if(nx<1 || nx>n || ny<1 || ny>m || c[nx][ny]){
+      dir = (dir+1)%4;
+      nx = x+dx[dir];
+      ny = y+dy[dir];
+    }
+    x=nx; y=ny;
+  }
+  cout << 0 << '\n';
+  return 0;
+}

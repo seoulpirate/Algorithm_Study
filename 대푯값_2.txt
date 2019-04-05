@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[10];
+int main() {
+
+  //Please Enter Your Code Here
+  int sum = 0;
+  for(int i=0; i<10; i++){
+    cin >> a[i];
+    sum += a[i];
+  }
+  sort(a, a+10);
+  int index = a[0];
+  int cnt = 1, tmp = 1;
+  for(int i=1; i<10; i++){
+    if(a[i] == a[i-1])
+      cnt +=1;
+    else 
+      cnt = 1;
+    if(tmp < cnt){
+      tmp = cnt;
+      index = a[i];
+    }
+  }
+  
+  cout << sum/10 << '\n';
+  cout << index << '\n';
+  return 0;
+}

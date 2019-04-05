@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+/*
+ (4,1) (2,3)
+ (4-2+1,1)
+*/
+int a[110][110];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int t;
+  cin >> t;
+  for(int k=1; k<=t; k++){
+    int x, y, w, h;
+    cin >> y >> x >> w >> h;
+    for(int i=x; i<x+h; i++){
+      for(int j=y; j<y+w; j++){
+        a[i][j] = k;
+      }
+    }
+  }
+  
+  for(int k=1; k<=t; k++){
+    int ans = 0;
+    for(int i=0; i<=101; i++){
+      for(int j=0; j<=101; j++){
+        if(a[i][j] == k) ans += 1;
+      }
+    }
+    cout << ans << '\n';
+  }
+  
+  return 0;
+}
