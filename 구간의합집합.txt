@@ -1,0 +1,67 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long long ans = 0;
+
+long long getSum(vector<pair<long long, long long>> &a, long long mid){
+  int n = a.size();
+  long long sum = 0;
+  for(int i=0; i<n; i++){
+    if(a[i].second < mid){
+      if(a[i].second == a[i].first){
+        sum+=(2); 
+      }else{
+        sum+=(a[i].second - a[i].first + 1);
+      }
+    }else if(a[i].first <= mid && mid <= a[i].second){
+      sum+=(mid-a[i].first);
+    }
+  }
+  return sum-1; // 리턴되는 값 이후 부터 mid가 시작.
+}
+
+void binarySearch(vector<pair<long long, long long>> &a, long long start, long long end, long long target){
+  if(start>end) return;
+  else{
+    long long mid = (start+end)/2;
+    long long cnt = getSum(a, mid);
+    // cnt번째 이후 부터 mid가 시작한다.
+    
+    if(cnt < target){
+      ans = mid;
+      binarySearch(a, mid+1, end, target);
+    }else{
+      binarySearch(a, start, mid-1, target);
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  long long start=-1, end=0;
+  vector<pair<long long, long long>> a(n);
+  for(int i=0; i<n; i++){
+    long long x, y; cin >> x >> y;
+    a[i]=make_pair(x,y);
+    if(start > x || start==-1)
+      start = x;
+    if(end < y)
+      end = y;
+  }
+  
+  // [start ~ end] 까지 경우중 목표로 하는 m이 어떤 숫자인지
+  long long m; cin >> m;
+  long long l = start;
+  long long r = end;
+  
+  
+  binarySearch(a, start, end, m);
+  
+  
+  cout << ans << '\n';
+
+  return 0;
+}

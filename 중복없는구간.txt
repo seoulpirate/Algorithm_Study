@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+int a[100001];
+bool c[100001];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+ 
+  int left = 0, right = 0;
+  int ans = 0;
+  while(left+right < n){
+    if(!c[a[left+right]]){
+      // 아직 방문안했어.
+      c[a[left+right]] = true;
+      right++;
+      if(ans < right) 
+        ans = right;
+    }else{
+      // 가보니 방문했어.
+      c[a[left]] = false;
+      left++;
+      right--;
+    }
+  }
+  
+  cout << ans << '\n';
+  return 0;
+}
+
+/*
+    while(left <= right && right+1 < n){
+    right++;
+    if(!c[a[right]]){
+      // right번째 해당하는 원소가 중복이 안된다면,
+      len++;
+      c[a[right]] = true;
+    }else{
+      // right번째 해당하는 원소가 중복이 된다면,
+      // right는 더 나아갈 수 없고, left번째 방문 안했다고 초기화.
+      c[a[left]] = false;
+      len--;
+      right--;
+    }
+  }
+*/

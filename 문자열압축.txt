@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+
+  //Please Enter Your Code Here
+  string s;
+  cin >> s;
+  s+=' ';
+  char base = s[0];
+  int cnt = 1;
+  for(int i=1; i<s.length(); i++){
+    if( base == s[i]){
+      cnt+=1;
+      if(i==s.length()-1){
+        cout <<cnt << base;
+      }
+    }else{
+      if(cnt!=1)
+        cout << cnt ;
+      cout << s[i-1];
+      base = s[i];
+      cnt = 1;
+    }
+  }
+  cout << '\n';
+  return 0;
+}

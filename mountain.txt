@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+void mont(int n){
+  if(n==0) return;
+  mont(n-1);
+  cout << n;
+  mont(n-1);
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n;
+  cin >> n;
+  mont(n);
+  cout << '\n';
+  cout << '\n';
+  return 0;
+}
