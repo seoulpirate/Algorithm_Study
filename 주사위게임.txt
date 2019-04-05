@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[1000][3];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int m;
+  cin >> m;
+  int ans = 0;
+  for(int i=0; i<m; i++){
+    int sum = 0;
+    for(int j=0; j<3; j++)
+      cin >> a[i][j];
+    sort(a[i], a[i]+3);
+    int cnt = 0; int cur = 0;
+    for(int j=1; j<3; j++){
+      if(a[i][j] == a[i][j-1]){
+        cnt += 1; cur = a[i][j];
+      }
+    }
+    if(cnt == 2){
+      sum = 10000 + (cur)*1000;
+    }else if(cnt == 1){
+      sum = 1000 + (cur) * 100;
+    }else{
+      sum = a[i][3] * 100;
+    }
+    
+    if(sum > ans)
+      ans = sum;
+  }
+  cout << ans << '\n';
+  return 0;
+}

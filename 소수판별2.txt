@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool c[20001];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m;
+  cin >> n >> m;
+  
+  c[1] = true;
+  for(int i=2; i<=20000; i++){
+    if(!c[i]){
+      for(int j =i*i; j<=20000; j+=i){
+        c[j] = true;
+      }
+    }
+  }
+  // false인 자료만 소수이다.
+  for(int i=n; i<=m; i++){
+    if(!c[i])
+      cout << i << ' ';
+  }
+  cout << '\n';
+
+  return 0;
+}

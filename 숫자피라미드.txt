@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+//char a[101][202];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, s;
+  cin >> n >> s;
+  for(int i=1; i<=n; i++){
+    string res = "";
+    for(int j=n-i; j>=1; j--){
+    //for(int j=1; j<=n-i; j++){
+      res += " ";
+    }
+    
+    string cur = "";
+    if(i % 2 == 1){ // string 변수 역순 출력 필요.
+      for(int j=1; j<=2*i-1; j++){
+        cur += to_string(s);
+        s+=1;
+        if(s == 10) s=1;
+      }
+      reverse(cur.begin(), cur.end());
+      cout << res + cur << '\n';
+    }else{
+      for(int j=1; j<=2*i-1; j++){
+        cur += to_string(s);
+        s+=1;
+        if(s == 10) s=1;
+      }
+      cout << res + cur << '\n';
+    }
+  }
+
+  return 0;
+}
