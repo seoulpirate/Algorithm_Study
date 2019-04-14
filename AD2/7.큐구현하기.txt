@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+const int MAX = 1000;
+struct Queue{
+  int data[MAX];
+  int capacity, begin, end;
+  
+  void create(int y){
+    capacity = y;
+    begin = end = 0;
+  }
+  
+  void push(int y){
+    if(end>=capacity)
+      printf("Overflow\n");
+    else
+      data[end++] = y;
+  }
+  
+  void pop(){
+    if(end-begin <= 0)
+      printf("Underflow\n");
+    else{
+      data[begin] = 0;
+      begin++;
+    }
+  }
+  
+  int front(){
+    if(end-begin <= 0)
+      return -1;
+    else
+      return data[begin];
+  }
+};
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  Queue q;
+  q.create(n);
+  while(m--){
+    int k; cin >> k;
+    if(k==1){
+      // push
+      int y; cin >> y;
+      q.push(y);
+    }else if(k==2){
+      // pop
+      q.pop();
+    }else if(k==3){
+      // front
+      if(q.front()!=-1)
+        cout << q.front() << '\n';
+      else
+        cout << "NULL" << '\n';
+    }
+  }
+
+  return 0;
+}

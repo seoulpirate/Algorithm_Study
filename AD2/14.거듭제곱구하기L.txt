@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+typedef long long ll;
+const int mod = 10007;
+int a[mod];
+bool c[mod];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  int cnt = n;
+  int index = 0;
+  ll m; cin >> m;
+  m-=1;
+  for(int i=0; i<mod; i++){
+    if(!c[cnt]){
+      c[cnt] = true;
+      a[index++] = cnt;
+      cnt *= n;
+      cnt %= mod;
+    }
+  }
+ 
+ //cout << index << '\n';
+ cout << a[m%index] << '\n';
+
+  return 0;
+}

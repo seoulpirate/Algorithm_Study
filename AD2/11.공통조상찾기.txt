@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<int> a[1001];
+bool c[1001];
+
+void getSize(int x, int& cnt){
+  if(x==0) {
+    cnt++;
+    return;
+  }
+  cnt++;
+  getSize(a[x][0], cnt);
+}
+
+int dfs(int x){
+  if(x==0){
+    if(c[x]) return x;
+    c[x] = true;
+    return -1;
+  }
+  if(c[x]) return x;
+  c[x] = true;
+  dfs(a[x][0]);
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, x, y; cin >> n >> x >> y;
+  for(int i=0; i<n; i++){
+    int v, w; cin >> v >> w;
+    a[v].push_back(w);
+    a[w].push_back(v);
+  }
+  
+  // 노드 x와 y중 depth가 더 높은게 어떤것인지 판단해야.
+  int depth1=0, depth2=0;
+  
+  getSize(a[x][0], depth1);
+  getSize(a[y][0], depth2);
+  
+  //cout << depth1 << ' ' << depth2 << '\n';
+  if(depth1>=depth2){
+    dfs(a[x][0]);
+    cout << dfs(a[y][0]) << '\n';
+  }else{
+    dfs(a[y][0]);
+    cout << dfs(a[x][0]) << '\n';
+  }
+
+  return 0;
+}
