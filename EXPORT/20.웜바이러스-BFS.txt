@@ -1,0 +1,35 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+vector<int> a[101];
+bool c[101];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  for(int i=0; i<m; i++){
+    int x, y; cin >> x >> y;
+    a[x].push_back(y);
+    a[y].push_back(x);
+  }
+  int ans = 0;
+  queue<int> q;
+  q.push(1);
+  c[1]=true;
+  while(!q.empty()){
+    int now = q.front(); q.pop();
+    ans+=1;
+    for(int i=0; i<a[now].size(); i++){
+      int next = a[now][i];
+      if(!c[next]){
+        c[next]=true;
+        q.push(next);
+      }
+    }
+  }
+  
+  cout << ans-1 << '\n';
+  return 0;
+}

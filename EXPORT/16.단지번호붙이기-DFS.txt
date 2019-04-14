@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
+int a[25][25];
+int d[25][25];
+int res[25*25+10];
+int n;
+void dfs(int x, int y, int i){
+  d[x][y] = i;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0 && nx<n && ny>=0 && ny<n){
+      if(d[nx][ny]==0 && a[nx][ny]==1)
+        dfs(nx, ny, i);
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++)
+      scanf("%1d", &a[i][j]);
+  int cnt = 0;    
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(a[i][j]==1 && d[i][j]==0){
+        dfs(i, j, ++cnt);
+      }
+    }
+  }
+  
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(a[i][j]==1)
+        res[d[i][j]]++;
+    }
+  }
+  sort(res+1, res+cnt+1);
+  cout << cnt << '\n';
+  for(int i=1; i<=cnt; i++)
+    cout << res[i] << '\n';
+  return 0;
+}

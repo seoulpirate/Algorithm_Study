@@ -1,0 +1,36 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+const int MAX = 100000;
+int d[MAX];
+bool c[MAX];
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  d[1] = 0;
+  c[1] = true;
+  queue<int> q;
+  q.push(1);
+  while(!q.empty()){
+    int now = q.front(); q.pop();
+    if(now*2 < MAX){
+      if(!c[now*2]){
+        c[now*2] = true;
+        d[now*2] = d[now]+1;
+        q.push(now*2);
+      }
+    }
+    if(now/3 > 0){
+      if(!c[now/3]){
+        c[now/3] = true;
+        d[now/3] = d[now]+1;
+        q.push(now/3);
+      }
+    }
+  }
+  
+  cout << d[n] << '\n';
+
+  return 0;
+}

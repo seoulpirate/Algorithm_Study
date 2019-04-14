@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+const int MAX = 1010;
+vector<int> graph[MAX];
+vector<int> cost[MAX];
+int n, m, s, e;
+const int INF = 987987987;
+
+vector<int> dijkstra(int start, int n){
+  vector<int> dist(n, INF);
+  vector<bool> c(n);
+  dist[start] = 0;
+  for(int i=1; i<=n; i++){
+    int minValue = INF, minIndex = -1;
+    
+    for(int j=1; j<=n; j++){
+      if(!c[j] && minValue > dist[j]){
+        minValue = dist[j];
+        minIndex = j;
+      }
+    }
+    c[minIndex] = true;
+    
+    for(int j=0; j<graph[minIndex].size(); j++){
+      int node = graph[minIndex][j];
+      int value = cost[minIndex][j];
+      
+      if(dist[node] > dist[minIndex]+value)
+        dist[node] = dist[minIndex]+value;
+    }
+  }
+  return dist;
+}
+
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n >> m;
+  for(int i=0; i<m; i++){
+    int x, y, w; cin >> x >> y >> w;
+    graph[x].push_back(y);
+    graph[y].push_back(x);
+    
+    cost[x].push_back(w);
+    cost[y].push_back(w);
+  }
+  int node1, node2; cin >> node1 >> node2;
+  vector<int> dist = dijkstra(1, n+1);
+  vector<int> t1 = dijkstra(node1, n+1);
+  vector<int> t2 = dijkstra(node2, n+1);
+  
+  // 1->node1->node2->n
+  // 1->node2->node1->n
+  int dist1 = dist[node1] + t1[node2] + t2[n];
+  int dist2 = dist[node2] + t2[node1] + t1[n];
+  int ans = min(dist1, dist2);
+  cout << ans << '\n';
+  return 0;
+}

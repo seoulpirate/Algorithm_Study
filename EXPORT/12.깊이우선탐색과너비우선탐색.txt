@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+vector<int> a[1001];
+bool c[1001];
+void dfs(int node){
+  c[node] = true;
+  cout << node << ' ';
+  for(int i=0; i<a[node].size(); i++){
+    int next = a[node][i];
+    if(!c[next])
+      dfs(next);
+  }
+}
+
+void bfs(int start){
+  queue<int> q;
+  q.push(start);
+  c[start]= true;
+  while(!q.empty()){
+    int now = q.front(); q.pop();
+    cout << now << ' ';
+    for(int i=0; i<a[now].size(); i++){
+      int next = a[now][i];
+      if(!c[next]){
+        c[next] = true;
+        q.push(next);
+      }
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; scanf("%d %d", &n, &m);
+  for(int i=0; i<m; i++){
+    int x, y; scanf("%d %d", &x, &y);
+    a[x].push_back(y);
+    a[y].push_back(x);
+  }
+  
+  for(int i=0; i<n; i++)
+    sort(a[i].begin(), a[i].end());
+  
+  dfs(0);
+  cout << '\n';
+  memset(c, false, sizeof(c));
+  bfs(0);
+  cout << '\n';
+
+  return 0;
+}

@@ -1,0 +1,24 @@
+#include <cstdio>
+using namespace std;
+int a[100001];
+int d[100001];
+const int mod = 1000007;
+int main() {
+
+  //Please Enter Your Code Here
+  int n; scanf("%d", &n);
+  for(int i=1; i<=n; i++)
+    scanf("%d", &a[i]);
+  
+  // d[i] = d[i-1] + d[i-2] + d[i-3];
+  // 단, i>3일때부터
+  d[1] = 1, d[2] = 2, d[3] = 4;
+  for(int i=4; i<=n; i++){
+    d[i] = d[i-1] + d[i-2] + d[i-3];
+    d[i] %= mod;
+  }
+  
+  printf("%d\n", d[n]);
+  
+  return 0;
+}

@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+int a[1001][1001];
+int d[1001][1001];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m, q; cin >> n >> m >> q;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++){
+      cin >> a[i][j];
+      d[i][j] = a[i][j];
+      if(i!=0)  d[i][j] += d[i-1][j];
+      if(j!=0)  d[i][j] += d[i][j-1];
+      if(i!=0 && j!=0) d[i][j] -= d[i-1][j-1];
+    }
+  
+  while(q--){
+    int sx, sy, ex, ey; cin >> sx >> sy >> ex >> ey;
+    int ans = d[ex][ey];
+    if(sx-1 >= 0)
+      ans-=d[sx-1][ey];
+    if(sy-1 >= 0)
+      ans-=d[ex][sy-1];
+    if(sx-1 >= 0 && sy-1 >= 0)
+      ans +=d[sx-1][sy-1];
+    cout << ans << '\n';
+  }
+
+  return 0;
+}

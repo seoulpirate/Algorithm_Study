@@ -1,0 +1,95 @@
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+using namespace std;
+const int MAX = 1000;
+vector<int> a[MAX+1];
+vector<int> reverse_g[MAX+1];
+vector<int> cost[MAX+1];
+vector<int> reverse_cost[MAX+1];
+int n, m, k;
+const int INF=987987987;
+
+vector<int> dijktra(int start){
+  vector<int> dist(n+1, INF);
+  vector<bool> c(n+1);
+  dist[start] = 0; // start를 0으로 초기화.
+  for(int i=1; i<=n; i++){
+    int minValue = INF;
+    int minIndex = -1;
+    for(int j=1; j<=n; j++){
+      if(!c[j] && minValue > dist[j]){
+        minValue = dist[j];
+        minIndex = j;
+      }
+    }
+    c[minIndex]=true;
+    // minIndex와 이웃한 정점 방문해 갱신
+    for(int j=0; j<a[minIndex].size(); j++){
+      int node2 = a[minIndex][j];
+      int cost2 = cost[minIndex][j];
+      if(dist[node2] > dist[minIndex] + cost2)
+        dist[node2] = dist[minIndex]+cost2;
+    }
+  }
+  return dist;
+}
+vector<int> dijktra2(int start){
+  vector<int> dist(n+1, INF);
+  vector<bool> c(n+1);
+  dist[start] = 0; // start를 0으로 초기화.
+  for(int i=1; i<=n; i++){
+    int minValue = INF;
+    int minIndex = -1;
+    for(int j=1; j<=n; j++){
+      if(!c[j] && minValue > dist[j]){
+        minValue = dist[j];
+        minIndex = j;
+      }
+    }
+    c[minIndex]=true;
+    // minIndex와 이웃한 정점 방문해 갱신
+    for(int j=0; j<reverse_g[minIndex].size(); j++){
+      int node2 = reverse_g[minIndex][j];
+      int cost2 = reverse_cost[minIndex][j];
+      if(dist[node2] > dist[minIndex] + cost2)
+        dist[node2] = dist[minIndex]+cost2;
+    }
+  }
+  return dist;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  //cin >> n >> m >> k;
+  scanf("%d %d %d", &n, &m, &k);
+  
+  for(int i=0; i<m; i++){
+    int x, y, k; scanf("%d %d %d", &x, &y, &k);
+    //cin >> x >> y >> k;
+    a[x].push_back(y);
+    reverse_g[y].push_back(x);
+    
+    cost[x].push_back(k);
+    reverse_cost[y].push_back(k);
+  }
+  
+  // k->갈수 있는 모든 정점 거리의 합 저장.
+  vector<int> d0 = dijktra(k);
+  int ans = 0;
+  for(int i=1; i<=n; i++)
+    ans += d0[i];
+  
+  // 본인들의 집에서 k로 가는 거리들의 합.
+  vector<int> d1 = dijktra2(k);
+  for(int i=1; i<=n; i++)
+    ans += d1[i];
+    
+  printf("%d\n", ans);
+
+ 
+  
+  return 0;
+}
