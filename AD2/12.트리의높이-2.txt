@@ -30,7 +30,7 @@ int bfs(int start){
   //Please Enter Your Code Here
   int n, r; 
   cin >> n >> r;
-  for(int i=0; i<n-1; i++){ // ³ëµåÀÇ°³¼ö¿Í °£¼±ÀÇ °³¼ö.
+  for(int i=0; i<n-1; i++){ // ë…¸ë“œì˜ê°œìˆ˜ì™€ ê°„ì„ ì˜ ê°œìˆ˜.
     int x, y; cin >> x >> y;
     a[x].push_back(y);
     a[y].push_back(x);

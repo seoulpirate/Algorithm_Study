@@ -62,7 +62,7 @@ int main() {
   int n_idx = 0;
   int a_idx = 0;
   while(n_idx < len /*&& a_idx < len*/){
-    // ½ºÅÃÀÌ ºñ¾úÀ¸¸é, pushÇØÁÖ°í a[]¹è¿­ ÀÎµ¦½º ÇÑÄ­ÀÌµ¿
+    // ìŠ¤íƒì´ ë¹„ì—ˆìœ¼ë©´, pushí•´ì£¼ê³  a[]ë°°ì—´ ì¸ë±ìŠ¤ í•œì¹¸ì´ë™
     if(s.empty()){
       if(!s.push(a[a_idx++])){
         printf("impossible\n");

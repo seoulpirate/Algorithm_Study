@@ -30,7 +30,7 @@ int bfs(int start){
   //Please Enter Your Code Here
   int n, r; 
   cin >> n >> r;
-  for(int i=0; i<n-1; i++){ // ³ëµåÀÇ°³¼ö¿Í °£¼±ÀÇ °³¼ö.
+  for(int i=0; i<n-1; i++){ // ë…¸ë“œì˜ê°œìˆ˜ì™€ ê°„ì„ ì˜ ê°œìˆ˜.
     int x, y; cin >> x >> y;
     a[x].push_back(y);
     a[y].push_back(x);
@@ -46,11 +46,11 @@ int n, r;
 int ans = 0;  
 void getHeight(int depth, int now, int prev){
   for(int i=0; i<n; i++){
-    // °¢ ³ëµå ¹øÈ£¸¦ ÀÏÀÏÀÌ Å½»öÇÑ´Ù.
+    // ê° ë…¸ë“œ ë²ˆí˜¸ë¥¼ ì¼ì¼ì´ íƒìƒ‰í•œë‹¤.
     if(i==prev) continue;
     if(a[now][i]){
-      // ÇöÀç ³ëµå¿Í ´ÙÀ½³ëµå°¡ ¿¬°áµÇ¾îÀÖ´Ù¸é,
-      // ³ôÀÌ¸¦ ÇÏ³ª Áõ°¡ÇÑ´Ù.
+      // í˜„ìž¬ ë…¸ë“œì™€ ë‹¤ìŒë…¸ë“œê°€ ì—°ê²°ë˜ì–´ìžˆë‹¤ë©´,
+      // ë†’ì´ë¥¼ í•˜ë‚˜ ì¦ê°€í•œë‹¤.
       getHeight(depth+1, i, now);
     }
   }
@@ -58,7 +58,7 @@ void getHeight(int depth, int now, int prev){
 }int main() {
   //Please Enter Your Code Here
   cin >> n >> r;
-  for(int i=0; i<n-1; i++){ // ³ëµåÀÇ°³¼ö¿Í °£¼±ÀÇ °³¼ö.
+  for(int i=0; i<n-1; i++){ // ë…¸ë“œì˜ê°œìˆ˜ì™€ ê°„ì„ ì˜ ê°œìˆ˜.
     int x, y; cin >> x >> y;
     a[x][y] = true;
     a[y][x] = true;

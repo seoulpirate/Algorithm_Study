@@ -9,7 +9,7 @@ bool check(string s){
     string s1 = s.substr(len-i, i);
     string s2 = s.substr(len-2*i, i);
     if(s1.compare(s2) == 0){
-      // s1 == s2, ³ª»Û ¼ö¿­!
+      // s1 == s2, ë‚˜ìœ ìˆ˜ì—´!
       return false;
     }
   }
@@ -18,7 +18,7 @@ bool check(string s){
 
 void go(int index, string s){
   if(index == n){
-    // Á¦ÀÏ ÀÛÀº ¼ö Ãâ·Â ÈÄ Á¾·á.
+    // ì œì¼ ì‘ì€ ìˆ˜ ì¶œë ¥ í›„ ì¢…ë£Œ.
     cout << s << '\n';
     exit(0);
   }
