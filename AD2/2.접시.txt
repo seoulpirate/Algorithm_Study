@@ -1,0 +1,94 @@
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Stack{
+  int data[30];
+  int len = 0;
+  int capacity = 0;
+  
+  void create(int y){
+    capacity = y;
+  }
+  
+ bool push(int y){
+    if(len>=capacity){
+      return false;
+    }else{
+      data[len++]=y;
+      return true;
+    }
+  }
+  
+  bool pop(){
+    if(len<=0){
+      return false;
+    }else{
+      data[len-1] = 0;
+      len--;
+      return true;
+    }
+  }
+  
+  int top(){
+    if(len<=0){
+      return -1;
+    }else{
+      return data[len-1];
+    }
+  }
+  
+  bool empty(){
+    if(len == 0)
+      return true;
+    else
+      return false;
+  }
+};
+
+int main() {
+
+  //Please Enter Your Code Here
+  string n; cin >> n;
+  int len = n.size();
+  Stack s; s.create(len);
+  
+  string a="";
+  for(int i=0; i<len; i++)
+    a+=('a' + i);
+  vector<int> res;
+  int n_idx = 0;
+  int a_idx = 0;
+  while(n_idx < len /*&& a_idx < len*/){
+    // 스택이 비었으면, push해주고 a[]배열 인덱스 한칸이동
+    if(s.empty()){
+      if(!s.push(a[a_idx++])){
+        printf("impossible\n");
+        return 0;
+      }
+      res.push_back(1);
+    }
+    
+    if(s.top() == n[n_idx]){
+      if(!s.pop()){
+        printf("impossible\n");
+        return 0;
+      }
+      n_idx++;
+      res.push_back(2);
+    }else{
+      if(!s.push(a[a_idx++])){
+        printf("impossible\n");
+        return 0;
+      }
+      res.push_back(1);
+    }
+  } 
+  
+  for(int &i: res)
+    cout << (i==1?"push":"pop") << '\n';
+
+  return 0;
+}

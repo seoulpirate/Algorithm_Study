@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cstdio>
+#include <string>
+using namespace std;
+
+struct Stack{
+  char data[50];
+  int len = 0;
+  int capacity = 30;
+  void push(char y){
+    data[len++] = y;
+  }
+  void pop(){
+    data[len-1] = 0;
+    len--;
+  }
+  bool empty(){
+    return (len==0? true:false);
+  }
+  char top(){
+    if(len>0) return data[len-1];
+  }
+};
+
+int main() {
+
+  //Please Enter Your Code Here
+  string n; cin >> n;
+  int len = n.length();
+  
+  Stack s;
+  int ans = 0;
+  int cnt = 1;
+  bool check = true;
+  for(int i=0; i<len; i++){
+    if(n[i] == '('){
+      cnt *= 2;
+      s.push('('); 
+    }else if(n[i] == '['){
+      cnt *= 3;
+      s.push('[');
+    }else if(n[i] == ')'){
+      if(s.top() != '(' || s.empty()){
+        check = false;
+        break;
+      }
+      if(n[i-1] == '(')
+        ans += cnt;
+      s.pop();
+      cnt /= 2;
+    }else if(n[i] == ']'){
+     if(s.top() != '[' || s.empty()){
+        check = false;
+        break;
+      }
+      if(n[i-1] == '[')
+        ans += cnt;
+      s.pop();
+      cnt /= 3;
+    }
+  }
+  if(!check || !s.empty())
+    cout << 0 << '\n';
+  else
+    cout << ans << '\n';
+
+  return 0;
+}
