@@ -14,7 +14,7 @@ const int INF=987987987;
 vector<int> dijktra(int start){
   vector<int> dist(n+1, INF);
   vector<bool> c(n+1);
-  dist[start] = 0; // start¸¦ 0À¸·Î ÃÊ±âÈ­.
+  dist[start] = 0; // startë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”.
   for(int i=1; i<=n; i++){
     int minValue = INF;
     int minIndex = -1;
@@ -25,7 +25,7 @@ vector<int> dijktra(int start){
       }
     }
     c[minIndex]=true;
-    // minIndex¿Í ÀÌ¿ôÇÑ Á¤Á¡ ¹æ¹®ÇØ °»½Å
+    // minIndexì™€ ì´ì›ƒí•œ ì •ì  ë°©ë¬¸í•´ ê°±ì‹ 
     for(int j=0; j<a[minIndex].size(); j++){
       int node2 = a[minIndex][j];
       int cost2 = cost[minIndex][j];
@@ -38,7 +38,7 @@ vector<int> dijktra(int start){
 vector<int> dijktra2(int start){
   vector<int> dist(n+1, INF);
   vector<bool> c(n+1);
-  dist[start] = 0; // start¸¦ 0À¸·Î ÃÊ±âÈ­.
+  dist[start] = 0; // startë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”.
   for(int i=1; i<=n; i++){
     int minValue = INF;
     int minIndex = -1;
@@ -49,7 +49,7 @@ vector<int> dijktra2(int start){
       }
     }
     c[minIndex]=true;
-    // minIndex¿Í ÀÌ¿ôÇÑ Á¤Á¡ ¹æ¹®ÇØ °»½Å
+    // minIndexì™€ ì´ì›ƒí•œ ì •ì  ë°©ë¬¸í•´ ê°±ì‹ 
     for(int j=0; j<reverse_g[minIndex].size(); j++){
       int node2 = reverse_g[minIndex][j];
       int cost2 = reverse_cost[minIndex][j];
@@ -76,13 +76,13 @@ int main() {
     reverse_cost[y].push_back(k);
   }
   
-  // k->°¥¼ö ÀÖ´Â ¸ğµç Á¤Á¡ °Å¸®ÀÇ ÇÕ ÀúÀå.
+  // k->ê°ˆìˆ˜ ìˆëŠ” ëª¨ë“  ì •ì  ê±°ë¦¬ì˜ í•© ì €ì¥.
   vector<int> d0 = dijktra(k);
   int ans = 0;
   for(int i=1; i<=n; i++)
     ans += d0[i];
   
-  // º»ÀÎµéÀÇ Áı¿¡¼­ k·Î °¡´Â °Å¸®µéÀÇ ÇÕ.
+  // ë³¸ì¸ë“¤ì˜ ì§‘ì—ì„œ kë¡œ ê°€ëŠ” ê±°ë¦¬ë“¤ì˜ í•©.
   vector<int> d1 = dijktra2(k);
   for(int i=1; i<=n; i++)
     ans += d1[i];
