@@ -37,7 +37,7 @@ struct Stack{
 int main() {
 
   //Please Enter Your Code Here
-  // ½ºÅÃÀÇ Å©±ân->create() ÅëÇØ È£Ãâ
+  // ìŠ¤íƒì˜ í¬ê¸°n->create() í†µí•´ í˜¸ì¶œ
   
   Stack s;
   int n, m;
