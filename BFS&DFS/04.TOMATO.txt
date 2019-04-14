@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cstring>
+#include <queue>
+#include <tuple>
+#include <algorithm>
+using namespace std;
+int dz[] = {0,0,0,0,-1,1};
+int dy[] = {0,0,-1,1,0,0};
+int dx[] = {-1,1,0,0,0,0};
+int a[101][101][101];
+int d[101][101][101];
+bool c[101][101][101];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m, h; cin >> m >> n >> h;
+  queue<tuple<int, int, int>> q;
+  memset(c, false, sizeof(c));
+  memset(d, -1, sizeof(d));
+  for(int z=0; z<h; z++){
+    for(int x=0; x<n; x++){
+      for(int y=0; y<m; y++){
+        cin >> a[z][x][y];
+        if(a[z][x][y] == 1){
+          q.push(make_tuple(z,x,y));
+          c[z][x][y] = true;
+          d[z][x][y] = 0;
+        }
+      }
+    }
+  }
+  
+  
+  while(!q.empty()){
+    int x, y, z;
+    tie(z,x,y) = q.front(); q.pop();
+    for(int k=0; k<6; k++){
+      int nx = x+dx[k];
+      int ny = y+dy[k];
+      int nz = z+dz[k];
+      if(nx>=0 && nx<n && ny>=0 && ny<m && nz>=0 && nz<h){
+        if(a[nz][nx][ny]==0){
+          if(!c[nz][nx][ny]){
+          //cout << nx << ' ' << ny << ' ' << nz << '\n';
+            c[nz][nx][ny] = true;
+            d[nz][nx][ny] = d[z][x][y] + 1;
+            q.push(make_tuple(nz, nx, ny));
+          }
+        }
+      }
+    }
+  }
+  bool ok = true;
+  int ans = 0;
+  for(int l=0; l<h; l++){
+    for(int i=0; i<n; i++){
+      for(int j=0; j<m; j++){
+        if(a[l][i][j] == 0){
+          if(d[l][i][j]==-1) ok = false;
+          if(d[l][i][j]>ans) ans = d[l][i][j];
+        }
+      }
+    }
+  }
+  cout << (ok?ans:-1) << '\n';
+  return 0;
+}

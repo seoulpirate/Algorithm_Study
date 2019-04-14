@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+int n;
+int a[100][100];
+bool c[100][100];
+int dx[] = {0,0,-1,1};
+int dy[] = {-1,1,0,0};
+void dfs(int x, int y, int water){
+  c[x][y]=true;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0&&nx<n&&ny>=0&&ny<n){
+      if(!c[nx][ny]){
+        if(a[nx][ny] > water){
+          c[nx][ny] = true;
+          dfs(nx, ny, water);
+        }
+      }
+    }
+  }
+}
+
+void clear(){
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++)
+      c[i][j] = false;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n;
+  int start=-1, end=0;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++){
+      cin >> a[i][j];
+      if(start==-1 || start>a[i][j])
+        start = a[i][j];
+      if(end<a[i][j])
+        end = a[i][j];
+    }
+  int ans = 0;
+  for(int k=start; k<=end; k++){
+    int cnt = 0;
+    for(int i=0; i<n; i++){
+      for(int j=0; j<n; j++){
+        if(!c[i][j]){
+          if(a[i][j] > k){
+            dfs(i, j, k);
+            cnt += 1;
+          }else{
+            c[i][j] = true;
+          }
+        }
+      }
+    }
+    if(cnt > ans) ans = cnt;
+    clear();
+  }
+  cout << ans << '\n';
+  return 0;
+}

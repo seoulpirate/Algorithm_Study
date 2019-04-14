@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int n, m;
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
+bool c[26];
+
+int go(vector<string> &a, int x, int y){
+  int ans = 0;
+  c[a[x][y] -'A'] = true;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0 && nx<n && ny>=0 && ny<m){
+      if(!c[a[nx][ny]-'A']){
+          c[a[nx][ny]-'A'] = true;
+          int next = go(a, nx, ny);
+          if(next > ans)
+            ans = next;
+          c[a[nx][ny]-'A'] = false;
+      }
+    }
+  }
+  return ans+1;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n >> m;
+  vector<string> a(n);
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+  c[a[0][0]-'A']=true;
+  cout << go(a, 0, 0) << '\n';
+
+  return 0;
+}

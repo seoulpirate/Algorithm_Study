@@ -1,0 +1,35 @@
+#include <cstdio>
+#include <vector>
+using namespace std;
+const int MAX = 1000;
+vector<int> a[MAX+1];
+bool c[MAX+1];
+void dfs(int node){
+  c[node]=true;
+  for(int i=0; i<a[node].size(); i++){
+    int next = a[node][i];
+    if(!c[next]){
+      dfs(next);
+    }
+  }
+}
+
+int main() {
+  //Please Enter Your Code Here
+  
+  int n, m; scanf("%d %d", &n, &m);
+  for(int i=0; i<m; i++){
+    int x, y; scanf("%d %d", &x, &y);
+    a[x].push_back(y);
+    a[y].push_back(x);
+  }
+  
+  int ans = 0;
+  for(int i=1; i<=n; i++)
+    if(!c[i]){
+      dfs(i);
+      ans++;
+    }
+  printf("%d\n", ans);
+  return 0;
+}

@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+const int MAX=1000;
+pair<int, int> tree[MAX+1];
+int a[MAX+1];
+int maxLevel[MAX+1];
+int minLevel[MAX+1];
+int pos = 1;
+
+void go(int now, int level){
+  if(tree[now].first > 0)
+    go(tree[now].first, level+1);
+    
+  if(minLevel[level] > pos)
+    minLevel[level] = pos;
+  
+  if(maxLevel[level] < pos)
+    maxLevel[level] = pos;
+    
+  pos++;
+  
+  if(tree[now].second > 0)
+    go(tree[now].second, level+1);
+
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, root, l, r;
+  cin >> n;
+  for(int i=0; i<=MAX+1; i++)
+    minLevel[i] = 987987987;
+  
+  for(int i=1; i<=n; i++){
+    cin >> root >> l >> r;
+    tree[root].first = l;
+    tree[root].second = r;
+    
+    a[root]++;
+    if(l!=-1) a[l]++;
+    if(r!=-1) a[r]++;
+  }
+  int start = 0;
+  // find root node
+  for(int i=1; i<=n; i++){
+    if(a[i]==1)
+      start = i;
+  }
+  
+  go(start, 1);
+  
+  int level = 0, ans = 0;
+  for(int i=1; i<=n; i++){
+    int sum = maxLevel[i] - minLevel[i] + 1;
+    if(sum>ans){
+      ans = sum;
+      level = i;
+    }
+  }
+  
+  cout << level << ' ' << ans << '\n';
+  return 0;
+}

@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+using namespace std;
+const int MAX = 100;
+vector<int> heavy[MAX];
+vector<int> light[MAX];
+bool c[MAX];
+int n;
+int cnt = 0;
+
+void bigger(int now){
+  c[now]=true;
+  for(int i=0; i<heavy[now].size(); i++){
+    int next = heavy[now][i];
+    if(!c[next]){
+      cnt++;
+      bigger(next);
+    }
+  }
+}
+void smaller(int now){
+  c[now]=true;
+  for(int i=0; i<light[now].size(); i++){
+    int next = light[now][i];
+    if(!c[next]){
+      cnt++;
+      smaller(next);
+    }
+  }
+}
+int main() {
+
+  //Please Enter Your Code Here
+  int m;
+  cin >> n >> m;
+  for(int i=0; i<m; i++){
+    int x, y; cin >> x >> y;
+    heavy[x].push_back(y);
+    light[y].push_back(x);
+  }
+  int ans = 0;
+  for(int i=1; i<=n; i++){
+    memset(c, false, sizeof(c));
+    cnt = 0;
+    
+    bigger(i);
+    if(cnt>=(n+1)/2){
+      ans+=1;
+      continue;
+    }
+    cnt = 0;
+    memset(c, false, sizeof(c));
+    
+    smaller(i);
+    if(cnt>=(n+1)/2)
+      ans+=1;
+
+  }
+  cout << ans << '\n';
+  return 0;
+}

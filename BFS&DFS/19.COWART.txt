@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+int group[100][100];
+int dx[]={0,0,-1,1};
+int dy[]={-1,1,0,0};
+int n; 
+char cow[110][110];
+char people[110][110];
+
+void dfs(int x, int y, char color, int flag){
+  group[x][y] = 1;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0&&nx<n&&ny>=0&&ny<n){
+      if(flag == 1){
+        if(color==people[nx][ny]){
+          if(group[nx][ny]==0){
+            dfs(nx, ny, color, flag);  
+          }
+        }
+      }else{
+        if(color==cow[nx][ny]){
+          if(group[nx][ny]==0){
+            dfs(nx, ny, color, flag);  
+          }
+        }
+      }
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n;
+  for(int i=0; i<n; i++){
+    cin >> people[i];
+    strcpy(cow[i], people[i]);
+    for(int j=0; j<n; j++)
+      if(people[i][j]=='G')
+        cow[i][j]='R';
+  }
+  
+  
+  int ans1=0, ans2=0;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(group[i][j]==0){
+        dfs(i, j, people[i][j], 1);
+        ans1++;
+      }
+    }
+  }
+  
+  memset(group, 0, sizeof(group));
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(group[i][j]==0){
+        dfs(i, j, cow[i][j], 0);
+        ans2++;
+      }
+    }
+  }
+  
+  cout << ans1 << ' ' << ans2 << '\n';
+  return 0;
+}

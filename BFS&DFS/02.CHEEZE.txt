@@ -1,0 +1,64 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[101][101];
+bool c[101][101];
+int ans = 0;
+int dx[] = {0,0,-1,1};
+int dy[] = {1,-1,0,0};
+int n, m;
+
+void go(int x, int y){
+  c[x][y] == true;
+  for(int k=0; k<4; k++){
+    int nx = x + dx[k];
+    int ny = y + dy[k];
+    if(nx<0 || nx>=n || ny<0 || ny>=m) continue;
+    if(c[nx][ny]) continue;
+    else if(a[nx][ny]==0){
+      c[nx][ny] = true;
+      go(nx, ny);
+    }else if(a[nx][ny] == 1){
+      a[nx][ny]=0;
+      c[nx][ny] = true;
+    }
+  }
+}
+
+void clear(){
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++)
+      c[i][j] = false;
+}
+
+int count(){
+  int cnt = 0;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++)
+      if(a[i][j] == 1)
+        cnt += 1;
+  return cnt;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n >> m;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++){
+      cin >> a[i][j];
+    }
+  int time = 1;
+  ans = count();
+  while(1){
+    go(0, 0);
+    int cnt = count();
+    if(cnt==0) break;
+    ans = cnt;
+    time++;
+    clear();
+  }    
+  cout << time << '\n';
+  cout << ans << '\n';
+  return 0;
+}

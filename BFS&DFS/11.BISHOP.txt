@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+bool c1[20]; // row-col+(n-1)
+bool c2[20]; // row+col
+bool c[10][10];
+int a[10][10];
+int dx[] = {-1,-1,1,1};
+int dy[] = {-1,1,-1,1};
+int n;
+int ans = 0;
+
+bool check(int row, int col){
+  if(c1[row-col+(n-1)]) return false;
+  if(c2[row+col]) return false;
+  return true;
+}
+
+void go(int row, int col, int cnt, int flag){
+  if(row==n){
+    if(cnt>ans) ans = cnt;
+    return;
+  }
+  
+  if(col>=n){
+    // 0, 1부터 시작한거 구분해서 다음 행으로 넘겨줘야.
+    if(flag==0){
+      if(row%2==0){
+        row+=1;
+        col=1;
+      }else{
+        row+=1;
+        col=0;
+      }
+    }else{
+      if(row%2==0){
+        row+=1;
+        col=0;
+      }else{
+        row+=1;
+        col=1;
+      }
+    }
+  }
+  
+  if(a[row][col]==1){
+    if(check(row, col)){
+      c1[row-col+(n-1)] = true;
+      c2[row+col] = true;
+    
+      go(row, col+2, cnt+1, flag);
+    
+      c1[row-col+(n-1)] = false;
+      c2[row+col] = false;
+    }
+  }
+  
+  go(row, col+2, cnt, flag);
+  
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++)
+      cin >> a[i][j];
+  int cnt = 0;
+  go(0, 0, 0, 0) ;
+  cnt += ans;
+  ans = 0;
+  go(0, 1, 0, 1);
+  cnt += ans;
+  cout << cnt << '\n';
+  
+  return 0;
+}

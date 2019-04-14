@@ -1,0 +1,58 @@
+#include <iostream>
+#include <queue>
+#include <cstring>
+using namespace std;
+int a[100][100];
+int d[100][100];
+int dx[]={0,0,-1,1};
+int dy[]={-1,1,0,0};
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  memset(d, -1, sizeof(d));
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++){
+      cin >> a[i][j];
+      if(a[i][j]==1) a[i][j]=-1;
+    }
+    
+  int x, y; cin >> y >> x;
+  x-=1; y-=1;
+  int t; cin >> t;
+  
+  queue<pair<int, int>> q;
+  d[x][y] = 0;
+  q.push(make_pair(x, y));
+  bool ok = false;
+  int cnt = 0;
+  while(!q.empty()){
+    int x=q.front().first;
+    int y=q.front().second;
+    q.pop();
+    for(int k=0; k<4; k++){
+      int nx=x+dx[k];
+      int ny=y+dy[k];
+      if(nx>=0&&nx<n&&ny>=0&&ny<n){
+        if(a[nx][ny]==0 && d[nx][ny]==-1){
+          ok=true;
+          d[nx][ny]=d[x][y]+1;
+          if(cnt<d[nx][ny]) cnt = d[nx][ny];
+          q.push(make_pair(nx, ny));
+        }
+      }
+    }
+  }
+  if(!ok) cout << -1 << '\n';
+  else{
+    int ans = 0;
+    for(int i=0; i<n; i++){
+      for(int j=0; j<n; j++){
+        if(d[i][j]==t)
+          ans+=1;
+      }
+    }
+    cout << (ans!=0?ans:-1) << '\n';
+  }
+  return 0;
+}

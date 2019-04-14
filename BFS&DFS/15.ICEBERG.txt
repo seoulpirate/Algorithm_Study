@@ -1,0 +1,88 @@
+#include <iostream>
+#include <cstring>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int a[300][300];
+int melted[300][300];
+bool c[300][300];
+
+int dx[]={0,0,-1,1};
+int dy[]={-1,1,0,0};
+
+int n, m;
+void dfs(int x, int y){
+  c[x][y] = true;
+  //cout << x << ' ' << y <<'\n';
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0 && nx<n && ny>=0 && ny<m){
+      if(a[nx][ny] && !c[nx][ny]){
+        dfs(nx, ny);
+      }
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  queue<pair<int, int>> q;
+  cin >> n >> m;
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++){
+      cin >> a[i][j];
+      if(a[i][j]) q.push(make_pair(i, j));
+        
+    }
+    
+  int time = 0;
+  bool ok = false;
+  while(!q.empty()){
+    time++;
+    while(!q.empty()){
+      int x = q.front().first;
+      int y = q.front().second;
+      q.pop();
+      
+      for(int k=0; k<4; k++){
+        int nx=x+dx[k];
+        int ny=y+dy[k];
+        if(nx<0 || nx>=n || ny<0 || ny>=m) continue;
+        if(a[nx][ny]==0)
+          melted[x][y]++; // 좌표 실수!
+      }
+    }
+    
+    for(int i=0; i<n; i++){
+      for(int j=0; j<m; j++){
+        a[i][j] = (a[i][j]-melted[i][j] >= 0) ? a[i][j]-melted[i][j] : 0;
+        if(a[i][j])
+          q.push(make_pair(i, j));
+      }
+    }
+    
+    int cnt = 0;
+    for(int i=0; i<n; i++){
+      for(int j=0; j<m; j++){
+        if(a[i][j] && !c[i][j]){
+          cnt++;
+          c[i][j] = true;
+          dfs(i, j);
+        }
+      }
+    }
+    if(cnt >= 2){
+      ok = true; 
+      break;
+    }
+    memset(c, false, sizeof(c));
+    memset(melted, 0, sizeof(melted));
+  }
+  
+  cout << (ok?time:0) << '\n';
+  
+  return 0;
+}

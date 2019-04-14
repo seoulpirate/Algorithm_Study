@@ -1,0 +1,62 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+bool c[100][100];
+int d[100][100];
+int res[100*100+10];
+int n, m;
+
+void dfs(int x, int y, int cnt){
+  d[x][y] = cnt;
+  c[x][y] = true;
+  for(int k=0; k<4; k++){
+    int nx = x+dx[k];
+    int ny = y+dy[k];
+    if(nx>=0 && nx<n && ny>=0 && ny<m){
+      if(!c[nx][ny]){
+        d[nx][ny] = cnt;
+        c[nx][ny] = true;
+        dfs(nx, ny, cnt);
+      }
+    }
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int t;
+  cin >> n >> m >> t;
+  for(int k=0; k<t; k++){
+    int x1, y1, x2, y2;
+    cin >> y1 >> x1 >> y2 >> x2;
+    
+    for(int i=x1; i<x2; i++)
+      for(int j=y1; j<y2; j++)
+        c[i][j] = true;
+  }
+  
+  
+  int cnt = 0;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+      if(!c[i][j]){
+        dfs(i, j, ++cnt);
+      }
+    }
+  }
+  
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++)
+      if(d[i][j] != 0)
+        res[d[i][j]]+=1;
+  
+  sort(res+1, res+1+cnt);
+  cout << cnt << '\n';
+  for(int i=1; i<=cnt; i++)
+    cout << res[i] << ' ';
+  cout << '\n';
+  return 0;
+}

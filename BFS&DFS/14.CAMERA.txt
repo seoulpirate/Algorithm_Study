@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+const int MAX=1000;
+bool c[MAX];
+vector<int> a[MAX];
+int ans = 0;
+const int UNWATCHED = 0;
+const int WATCHED = 1;
+const int INSTALLED = 2;
+
+int dfs(int node){
+  c[node]=true;
+  int child[3]={0,0,0};
+  for(int i=0; i<a[node].size(); i++){
+    int next = a[node][i];
+    if(!c[next]){
+      int index = dfs(next);
+      child[index]++;
+    }
+  }
+  
+  // 자손 노드중 감시되지 않는 노드가 있으면 설치
+  if(child[UNWATCHED]){
+    ans+=1;
+    return INSTALLED;
+  }
+  
+  // 자손 노드중 설치가 되있으면 설치 필요 없다
+  if(child[INSTALLED]){
+    return WATCHED;
+  }
+  
+  return UNWATCHED;
+}
+
+int main() {
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  for(int i=0; i<m; i++){
+    int x, y; cin >> x >> y;
+    a[x].push_back(y);
+    a[y].push_back(x);
+  }
+  
+  for(int now=0; now<n; now++){
+    if(!c[now] && dfs(now)==UNWATCHED){
+      ans+=1;
+    }
+  }
+  cout << ans << '\n';
+
+  return 0;
+}

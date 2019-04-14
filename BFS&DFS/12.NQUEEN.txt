@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+bool c1[20];   // col 검사
+bool c2[30];   // 대각선 검사1
+bool c3[30];   // 대각선 검사2
+int n;
+
+bool check(int row, int col){
+  if(c1[col]) return false;
+  if(c2[row+col]) return false;
+  if(c3[row-col+(n-1)]) return false;
+  return true;
+}
+
+int go(int row){
+  if(row == n){
+    return 1;
+  }
+  int ans = 0;
+  for(int col=0; col<n; col++){
+    if(check(row, col)){
+      c1[col]=true;
+      c2[row+col]=true;
+      c3[row-col+(n-1)]=true;
+      ans += go(row+1);
+      c1[col]=false;
+      c2[row+col]=false;
+      c3[row-col+(n-1)]=false;
+    }
+  }
+  return ans;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> n;
+  
+  cout << go(0) << '\n';
+
+  return 0;
+}
