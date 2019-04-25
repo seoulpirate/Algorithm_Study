@@ -31,20 +31,3 @@ int main() {
   cout << ans << '\n';
   return 0;
 }
-
-/*
-    while(left <= right && right+1 < n){
-    right++;
-    if(!c[a[right]]){
-      // right번째 해당하는 원소가 중복이 안된다면,
-      len++;
-      c[a[right]] = true;
-    }else{
-      // right번째 해당하는 원소가 중복이 된다면,
-      // right는 더 나아갈 수 없고, left번째 방문 안했다고 초기화.
-      c[a[left]] = false;
-      len--;
-      right--;
-    }
-  }
-*/
