@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n1, n2;
+  char op;
+  cin >> n1 >> op >> n2;
+  
+  // switch구문 사용
+  switch(op){
+    case '+' :
+      cout << n1+n2 << '\n';
+      break;
+    case '-' :
+      cout << n1-n2 << '\n';
+      break;
+    case '*' :
+      cout << n1*n2 << '\n';
+      break;
+    case '/' :
+      cout << n1/n2 << '\n';
+      break;
+  }
+
+  return 0;
+}

@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int a[9][9];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n = 9;
+  //vector<vector<int>> a(n, vector<int>(n));
+  for(int i=0; i<n; i++)
+    for(int j=0; j<n; j++)
+      cin >> a[i][j];
+      
+  
+  int ans = 0; int x,y;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(ans < a[i][j]){
+        ans = a[i][j];
+        //cout << i << ' ' << j << '\n';
+        y = j+1; 
+        x = i+1;
+      }
+    }
+  } 
+  cout <<ans << '\n';
+  cout << x << ' ' <<y << '\n';
+  return 0;
+}

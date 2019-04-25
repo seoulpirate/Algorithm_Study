@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool check(vector<int> &a, vector<char> &oper){
+  for(int i=0; i<oper.size(); i++){
+    if(oper[i] == '<'){
+      if(a[i] > a[i+1])
+        return false;
+    }else if(oper[i] == '>'){
+      if(a[i] < a[i+1])
+        return false;
+    }
+  }
+  return true;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  vector<char> a(n);
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+  
+  vector<int> big(n+1), small(n+1);
+  for(int i=0; i<=n; i++){
+    big[i] = 9-i;
+    small[i] = i;
+  }
+  
+  do{
+    if(check(big, a)){
+      for(int i=0; i<=n; i++)
+        cout << big[i];
+      cout << '\n';
+      break;
+    }
+  }while(prev_permutation(big.begin(), big.end()));
+  
+  do{
+    if(check(small, a)){
+      for(int i=0; i<=n; i++)
+        cout << small[i];
+      cout << '\n';
+      break;
+    }
+  }while(next_permutation(small.begin(), small.end()));
+
+  return 0;
+}

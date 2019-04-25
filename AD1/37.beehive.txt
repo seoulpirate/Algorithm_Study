@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+/*
+1, 6, 6+6, 6+6+6, ...
+1, 6, 12, 18, 24 : 등비수열
+*/
+int a[1000000];
+int main() {
+
+  //Please Enter Your Code Here
+  int n;
+  cin >> n;
+  int cnt = 1;
+  
+  if(n == 1){cout << 1 << '\n'; return 0;}
+  
+  int i = 2;
+  int k = 1;
+  while(i<=n){
+    i+=6*k++;
+  }
+  cout << k << '\n';
+  return 0;
+}

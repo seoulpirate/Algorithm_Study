@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+long long calc(long long a){
+  long long x = 1;
+  if(a==1) return 0;
+  while(1){
+    if(x*(x+1) == a)
+      return x;
+    else if(x*(x+1) < a)
+      x++;
+    else
+      return x-1;
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  long long n; cin >> n;
+  cout << calc(n) << '\n';
+  return 0;
+}

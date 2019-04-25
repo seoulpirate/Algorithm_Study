@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+  //Please Enter Your Code Here
+  string n1, n2;
+  cin >> n1 >> n2;
+  
+  reverse(n1.begin(), n1.end());
+  reverse(n2.begin(), n2.end());
+  
+  string ans ="";
+  
+  int len1 = n1.length();
+  int len2 = n2.length();
+ 
+  if(len1 < len2){
+    string tmp = n1;
+    n1 = n2;
+    n2 = tmp;
+    
+    int tmp2 = len1;
+    len1 = len2;
+    len2 = tmp2;
+  }
+  
+  int nxt_num = 0;
+  for(int i=0; i<len2; i++){
+    int now_num = (n1[i]-'0') + (n2[i]-'0') + nxt_num;
+    ans += to_string(now_num % 10);
+    nxt_num = now_num / 10;
+  }
+  n1+="0";
+  for(int i=len2; i<=len1; i++){
+    int now_num = (n1[i]-'0') + nxt_num;
+    ans += to_string(now_num % 10);
+    nxt_num = now_num / 10;
+  }
+  int len = ans.length();
+  if(ans[len-1] == '0'){
+    for(int i=len-2; i>=0; i--){
+      cout << ans[i];
+    } 
+  } else{
+    for(int i=len-1; i>=0; i--){
+      cout << ans[i];
+    } 
+  }
+  cout << '\n';
+  
+  return 0;
+}

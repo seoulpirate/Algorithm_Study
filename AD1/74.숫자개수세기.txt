@@ -1,0 +1,23 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m;
+  cin >> n >> m;
+  vector<int> a(n);
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+  sort(a.begin(), a.end());
+  
+  while(m--){
+    int k; cin >> k;
+    auto p = equal_range(a.begin(), a.end(), k);
+    cout << p.second - p.first << '\n';
+  }
+
+  return 0;
+}

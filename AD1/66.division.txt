@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int ans = 0;
+void go(int index, int num, vector<int> &a){
+  if(num == 0){
+    if(a.size() == 1) return;
+    for(int i=0; i<a.size(); i++) {
+      cout << a[i] ;
+      if(i!=a.size()-1) cout << '+'; 
+    }
+    ans+=1;
+    cout << '\n';
+    return ;
+  }
+  for(int i=num; i>=1; i--){
+    if(index>0 && a[index-1] < i) continue;
+    a.push_back(i);
+    go(index+1, num-i, a);
+    a.pop_back();
+  }
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin>>n;
+  vector<int> a;
+  go(0, n, a);
+  cout << ans << '\n';
+ 
+  return 0;
+}

@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int a[5][5];
+int res[5*5];
+int n=5;
+//int dx[] = {0,0,-1,1,1,1,-1,-1};
+//int dy[] = {1,-1,0,0,1,-1,1,-1};
+
+void bingo(int k){
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(a[i][j] == k){
+        a[i][j] = 0;
+        return;
+      }
+    }
+  }
+}
+
+bool check(){
+  int ans = 0;
+  // 행 검사
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      if(a[i][j] != 0) break;
+      if(j==n-1 && a[i][j]==0) ans +=1;
+    }
+    if(ans == 3) return true;
+  }
+  // 열 검사
+  for(int j=0; j<n; j++){
+    for(int i=0; i<n; i++){
+      if(a[i][j] != 0) break;
+      if(i==n-1 && a[i][j]==0) ans+=1;
+    }
+    if(ans == 3) return true;
+  }
+  
+  // 대각선 검사
+  for(int x=0, y=0; x<n; x+=1, y+=1){
+    if(a[x][y] != 0) break;
+    if(x==n-1 && a[x][y]==0) ans+=1;
+  }
+  if(ans == 3) return true;
+  
+  for(int x=n-1, y=0; y<n; x-=1, y+=1){
+    if(a[x][y] != 0) break;
+    if(y==n-1 && a[x][y]==0) ans+=1;
+  }
+  if(ans == 3) return true;
+  return false;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++)
+      cin >> a[i][j];
+  }
+  for(int k=0; k<5*5; k++){
+      cin >> res[k];
+  }
+  
+  for(int k=0; k<5*5; k++){
+    bingo(res[k]);
+    if(check()){
+      cout <<k+1<<'\n';
+      break;
+    }
+  }
+  
+   
+  return 0;
+}

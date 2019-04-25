@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+int a[100001];
+
+int getLeft(int a[], int s, int e, int pivot, int res[]){
+  int index = 0;
+  for(int i=s; i<=e; i++){
+    if(a[i] <= pivot)
+      res[index++] = a[i];
+  }
+  return index;
+}
+
+int getRight(int a[], int s, int e, int pivot, int res[]){
+  int index = 0;
+  for(int i=s; i<=e; i++){
+    if(a[i] > pivot)
+      res[index++] = a[i];
+  }
+  return index;
+}
+
+void quickSort(int a[], int start, int end){
+  if(start >= end) return;
+  
+  int pivot = a[start];
+  int Left[100001], Right[100001];
+  int cLeft = getLeft(a, start+1, end, pivot, Left);
+  int cRight = getRight(a, start+1, end, pivot, Right);
+  for(int i=0; i<cLeft; i++)
+    a[start+i] = Left[i];
+  a[start+cLeft] = pivot;
+  for(int i=0; i<cRight; i++)
+    a[start+cLeft+1+i] = Right[i];
+    
+  quickSort(a, start, start+cLeft-1);
+  quickSort(a, start+cLeft+1,end);
+  
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+  quickSort(a, 0, n-1);
+  
+  //print
+  for(int i=0; i<n; i++)
+    cout << a[i] << ' ';
+  cout << '\n';
+
+  return 0;
+}

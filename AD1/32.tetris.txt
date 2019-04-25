@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int check(int row, int col, vector<vector<int>> a){
+  int n = a.size();
+  int m = a[0].size();
+  
+  if(a[row][col] != 0) return 0;
+  int h = (row+4)-1;
+  if(h >= n) return 0;
+  vector<vector<int>> b(a);
+  for(int i=row; i<=h; i++){
+    if(a[i][col] != 0) return 0;
+    b[i][col] = 1;
+  }
+  
+  // 새로운 테트리스판에 하나의 작대기 채웠다.
+  int cnt = 0;
+  for(int i=0; i<n; i++){
+    bool ok = true;
+    for(int j=0; j<m; j++){
+      if(b[i][j] == 0)
+        ok = false;
+    }
+    if(ok) cnt+=1;
+  }
+  
+  return cnt;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m;
+  cin >> m >> n;
+  vector<vector<int>> a(n, vector<int>(m));
+  for(int i=0; i<n; i++)
+    for(int j=0; j<m; j++)
+      cin >> a[(n-1)-i][j];
+      
+  int ans = 0;
+  int index = 0;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+      int cur = check(i, j, a);
+      if(cur>ans && cur!=0){
+        index = j+1;
+        ans = cur;
+      }
+    }
+  }
+  
+  
+  // y는 완전히 메워지는 수평선의 개수. x는 그때의 '열'자리
+  cout << index << ' ' << ans << '\n';
+  return 0;
+}

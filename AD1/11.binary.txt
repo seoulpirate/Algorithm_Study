@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+/*
+14
+7 - 0
+3 - 1
+1 - 1
+
+*/
+void print(int n){
+  if(n!=1){
+    print(n/2);
+  } 
+  cout << n%2 ;
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  print(n);
+  cout << '\n';
+  return 0;
+}
