@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+const int MAX = 100000000;
+int d[MAX+1];
+int a[5] = {1, 5, 50, 100, 500};
+// a[i] : 1원, 5원, 50원, 100원, 500원
+// d[i] = d[i-a[j]]+1 (단, i-a[j]>=0)
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  
+   
+  for(int i=0; i<=n; i++){
+    d[i]=i;
+    for(int j=0; j<5; j++){
+      if(i-a[j]>=0){
+        if(d[i] > d[i-a[j]]+1) d[i] = d[i-a[j]]+1;
+      }
+    }
+  }
+  cout << d[n] << '\n';
+  return 0;
+}

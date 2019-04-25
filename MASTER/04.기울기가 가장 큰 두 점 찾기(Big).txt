@@ -1,0 +1,22 @@
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+pair<int, int> a[100001];
+int main() {
+
+  //Please Enter Your Code Here
+  int n; scanf("%d", &n);
+  for(int i=0; i<n; i++)
+    scanf("%d %d", &a[i].first, &a[i].second);
+  
+  sort(a, a+n);
+  
+  double ans = -1;
+  for(int i=0; i<n-1; i++){
+    double slope = (double) (a[i].second - a[i+1].second)/(a[i].first - a[i+1].first);
+    if(slope<0) slope=-slope;
+    if(ans < slope) ans = slope;
+  }
+  printf("%.3lf\n", ans);
+  return 0;
+}

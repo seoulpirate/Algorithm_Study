@@ -1,0 +1,44 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int weight[100001];
+int value[100001];
+pair<double, int> a[100001];
+double d[100001];
+int main() {
+
+  //Please Enter Your Code Here
+  // 가격대비 큰 가치를 갖는 무게 먼저 넣으면 된다.
+  int n, m; scanf("%d %d", &n, &m);
+  for(int i=0; i<n; i++)
+    scanf("%d %d", &weight[i], &value[i]);
+    
+  for(int i=0; i<n; i++){
+    a[i].first = (double)value[i]/weight[i];
+    a[i].first = -a[i].first;
+    a[i].second = i;
+  }
+    
+  sort(a, a+n);
+  
+  double ans = 0;
+  for(int i=0; i<n; i++){
+    if(weight[a[i].second]<=m){
+      ans += (double)(-a[i].first)*weight[a[i].second];
+      m -= weight[a[i].second];
+    }else if(weight[a[i].second]>m){
+      ans += (double)((-a[i].first)*m);
+      m=0;
+    }
+    if(m==0) break;
+  }
+  
+  printf("%.3lf\n", ans);
+  
+  
+  
+  
+  return 0;
+}

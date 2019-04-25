@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+int d[1001][1001];
+int d2[1001][1001];
+int a[1001];
+
+int go(int i, int j){
+  if(i > j) return 0;
+  if(d[i][j] != -1) return d[i][j];
+  d[i][j]=0;
+  d[i][j] = max(a[i] + go(i+1, j), a[j] + go(i, j-1));
+  return d[i][j];
+}
+
+int go2(int i, int j){
+  if(i > j) return 0;
+  if(d2[i][j] != -1) return d2[i][j];
+  d2[i][j]=0;
+  d2[i][j] = max(a[i] - go2(i+1, j), a[j] - go2(i, j-1));
+  return d2[i][j];
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+  memset(d, -1, sizeof(d));
+  memset(d2, -1, sizeof(d));
+  int x = go(0, n-1);
+  int y = go2(0, n-1);
+  cout << (x+y)/2 << ' ' << (x-y)/2 << '\n';
+  return 0;
+}

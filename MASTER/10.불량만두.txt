@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+int d[101];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n;
+  cin >> n;
+  d[1]=0;
+  for(int i=2; i<=100; i++){
+    for(int k=1, j=1; ;k+=1, j*=3){
+      if(j<=i && i<j*3){
+        d[i] = k;
+        break;
+      }
+    }
+  }
+  
+  cout << d[n] << '\n';
+  
+  return 0;
+}

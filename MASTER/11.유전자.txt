@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+using namespace std;
+int d[500][500];
+string a;
+
+int solve(int s, int e){
+  if(d[s][e] != -1 )return d[s][e];
+  
+  d[s][e] = 0;
+  if((a[s]=='a' && a[e]=='t') || (a[s]=='g' && a[e]=='c'))
+    d[s][e] = solve(s+1, e-1) + 2;
+  
+  for(int i=s; i<e; i++)
+    d[s][e] = max(d[s][e], solve(s, i) + solve(i+1, e));
+  
+  return d[s][e];
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  cin >> a;
+  memset(d, -1, sizeof(d));
+  cout << solve(0, a.length()-1) << '\n';
+  return 0;
+}

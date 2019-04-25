@@ -1,0 +1,24 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+pair<int, int> a[100001];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  for(int i=0; i<n; i++)
+    cin >> a[i].second >> a[i].first;
+  
+  sort(a, a+n); // first==e, second==s
+  
+  int finish = 0, ans = 0;
+  for(int i=0; i<n; i++){
+    if(finish <= a[i].second){
+      ans += 1;
+      finish = a[i].first;
+    }
+  }
+  cout << ans << '\n';
+  return 0;
+}

@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+int a[1001];
+int sums[1001][1001];
+int d[101][1001];
+/*
+T[i][j] : i대 에어컨을 놓을 1-j까지 위치에 놓을때 cost의 최솟값.
+T[i][j] = min(T[i][j], T[i-1][k-1] + (k~j까지 에어컨 1대 놓을때 cost));
+(2<=k && k<=j)
+*/
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  for(int i=1; i<=n; i++)
+    cin >> a[i];
+  
+  sort(a+1, a+n+1);
+  
+  for(int s=1; s<=n; s++){ // 1000
+    for(int e=s; e<=n; e++){ // 1000
+      int mid = (s+e)/2;
+      if((s+e)%2==1) mid += 1;
+      int sum = 0;
+      for(int l=s; l<=e; l++){ // 1000
+        int diff = a[mid]-a[l];
+        if(diff<0) diff=-diff;
+        sum+=diff;
+      }
+      sums[s][e] = sum;
+    }
+  }
+  
+  for(int j=2; j<=n; j++)
+    d[1][j] = sums[1][j];
+  
+  
+  // i개의 에어컨을 1~j까지 위치에 놓을때.
+  for(int j=1; j<=n; j++){ // 1000
+    for(int i=2; i<=m; i++){ // 100
+      if(i<j){
+        // 1~j 위치 학생에서 i개 에어컨 놓을때,
+        // (j+1)~n 위치에 1개 에어컨 놓는다.
+        d[i][j] = -1;
+        // i-1개는 1~(k-1), 1개는 k~j에 놓을때
+        for(int k=2; k<=j; k++){ // 1000
+          if(d[i][j] == -1 || d[i][j] > d[i-1][k-1] + sums[k][j])
+            d[i][j] = d[i-1][k-1] + sums[k][j];
+        }
+      }
+    }
+  }
+  
+  cout << d[m][n] << '\n';
+  
+  return 0;
+}

@@ -1,0 +1,36 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <queue>
+using namespace std;
+pair<int, int> a[100001];
+int main() {
+
+  //Please Enter Your Code Here
+  int n; scanf("%d", &n);
+  for(int i=1; i<=n; i++)
+    scanf("%d %d", &a[i].first, &a[i].second);
+  sort(a+1, a+n+1);
+ 
+  priority_queue <int, vector<int>, greater<> >q; // 오름차순 정렬
+  q.push(0);
+  for(int i=1; i<=n; i++){
+    int s = a[i].first;
+    int e = a[i].second;
+    
+    if(q.top() <= s){ 
+      // 다음 회의실 시작 시간이 현재 회의실 끝나는 시간보다 크거나 같으면, 
+      q.pop();
+      q.push(e);
+    }else{
+      // 새로 회의실 하나 만들어야
+      q.push(e);
+    }
+  }
+ 
+  printf("%d\n", q.size());
+  
+  
+ 
+  return 0;
+}

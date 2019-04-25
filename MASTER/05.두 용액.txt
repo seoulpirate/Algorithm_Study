@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[100001];
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n; cin >> n;
+  for(int i=0; i<n; i++)
+    cin >> a[i];
+    
+  sort(a, a+n);
+  int ans = 987987987;
+  int left=0, right=n-1;
+  int x, y;
+  while(left<right){
+    int sum = a[left]+a[right];
+    if(sum<0) sum = -sum;
+    if(ans > sum){
+      x=a[left];
+      y=a[right];
+      ans = sum;
+    }
+    if(a[left]+a[right]>0) right--;
+    else left++;
+  }
+  cout << x << ' ' << y << '\n';
+  return 0;
+}

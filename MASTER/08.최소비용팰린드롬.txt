@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+
+int cost[26][2];
+int d[1001][1001];
+string s;
+
+int calc(int i, int j){
+  if(i>=j) return 0;
+  if(d[i][j]!=-1) return d[i][j];
+  
+  if(s[i] == s[j]) 
+    d[i][j] = calc(i+1, j-1);
+  else{
+    int frontInsert = calc(i+1, j) + cost[s[i]-'a'][0];
+    int frontDelete = calc(i+1, j) + cost[s[i]-'a'][1];
+    int endInsert = calc(i, j-1) + cost[s[j]-'a'][0];
+    int endDelete = calc(i, j-1) + cost[s[j]-'a'][1];
+    int ans = min({frontInsert, frontDelete, endInsert, endDelete});
+    d[i][j] = ans;
+  }
+  return d[i][j];
+}
+
+int main() {
+
+  //Please Enter Your Code Here
+  int n, m; cin >> n >> m;
+  cin >> s;
+  for(int i=0; i<m; i++){
+    char a; int b, c;
+    cin >> a >> b >> c;
+    cost[a-'a'][0]=b;
+    cost[a-'a'][1]=c;
+  }
+  
+  memset(d, -1, sizeof(d));
+  int l = s.length();
+  cout << calc(0, l-1) << '\n';
+
+  return 0;
+}
